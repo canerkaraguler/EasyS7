@@ -1,0 +1,15 @@
+README.md
+setup.py
+EasyS7/DataBlock.py
+EasyS7/PLC.py
+EasyS7/Utility.py
+EasyS7/__init__.py
+EasyS7.egg-info/PKG-INFO
+EasyS7.egg-info/SOURCES.txt
+EasyS7.egg-info/dependency_links.txt
+EasyS7.egg-info/top_level.txt
+EasyS7/DataTypes/DTbool.py
+EasyS7/DataTypes/DTdint.py
+EasyS7/DataTypes/DTint.py
+EasyS7/DataTypes/DTtime.py
+EasyS7/DataTypes/__init__.py
