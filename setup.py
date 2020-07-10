@@ -7,7 +7,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
 	name="EasyS7",
-	version='1.0.0',
+	version='1.0.2',
 	author='Caner Karagüler',
 	author_email='caner.karaguler@gmail.com',
 	long_description = long_description,

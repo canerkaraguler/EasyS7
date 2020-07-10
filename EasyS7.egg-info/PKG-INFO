@@ -1,181 +1,79 @@
 Metadata-Version: 2.1
 Name: EasyS7
-Version: 1.0.0
+Version: 1.0.2
 Summary: Easy way to communicate with S7 series PLC.
 Home-page: https://github.com/canerkaraguler/EasyS7
 Author: Caner Karagüler
 Author-email: caner.karaguler@gmail.com
 License: UNKNOWN
-Description: # Json2PascalVoc
-        
-        Json2PascalVoc is a Python library for converting some special Json strings to PascalVOC format XML files.
-        
-        ## Installation
-        
-        Use the package manager [pip](https://pip.pypa.io/en/stable/) to install Json2PascalVoc.
+Description: # EasyS7
         
         
+        
+        
+        
+        EasyS7 is a python library for reading datablocks from Siemens S7 series PLCs . It depends on python-snap7 library so you should first install the library.
+        
+        ## Installation 
+        
+        Before installing EasyS7 you should follow the steps that are described in [documentation](https://python-snap7.readthedocs.io/en/latest/). After that, you can install EasyS7 over package manager [pip](https://pypi.org/) with the folowing command 
         
         ```bash
-        pip install Json2PascalVoc
+        $ pip install EasyS7
         ```
-        
-        Or download package from [GitHub](https://github.com/canerkaraguler/JsonToPascalVOC)
         
         ## Usage
         
+        To be able to use this library, you should have a layout of your db that you want to read. This layout is used to get data types and their ofsets to be able to operate related byte converting operations.  This layout can be obtained by copying the db from the TIA portal in to a txt file. You should copy the first 3 columns that contains the name, data type and ofset informations. 
+        An example layout is :
+        ```
+        dummy1	Real	0
+        dummy2	Int	4
+        dummy3	Int	6
+        dummy4	Real	8
+        dummy5	Real	12
+        dummy6	Real	16
+        dummy7	Real	20
+        dummy8	Int	24
+        dummy9	Int	26
+        dummy10	Int	28
+        dummy11	Int	30
+        dummy12	Int	32
+        dummy13	Int	34
+        dummy14	Int	36
+        dummy15	Int	38
+        dummy16	String[32]	40
+        dummy17	Bool	74.0
+        dummy18	Bool	74.1
+        dummy19	Bool	74.2
+        dummy20	Bool	74.3
+        dummy21	Bool	74.4
+        dummy22	Bool	74.5
+        dummy23	Bool	74.6
+        dummy24	Bool	74.7
+        dummy25	Bool	75.0
+        dummy26	Real	76
+        dummy27	Bool	80.0
+        dummy28	Bool	80.1
+        dummy29	Bool	80.2
+        ```
+        You can read the related data with this example code
         ```python
-        from Json2PascalVoc.Converter import Converter
-        
-        myConverter = Converter()
-        # returns a Converter Object
-        myConverter.convertJsonToPascal("data.json")
-        # Converts Json to PascalVOC XML and saves the XML file to the related file path
-        
-        myConverter.convertJsonToPascal("data.json", "data.xml")
-        # Converts Json to PascalVOC XML and saves the XML file at the path given at second argument
-        
-        ```
-        An example data.json file is :
-        ```json
-        {
-           "data":[
-              {
-                 "annotation":{
-                    "folder":"class1",
-                    "filename":"_ADC0362.jpg",
-                    "path":"~/Desktop/Dev/data/foo/train/class1/_ADC0362.jpg",
-                    "source":{
-                       "database":"Unknown"
-                    },
-                    "size":{
-                       "width":1500,
-                       "height":1500,
-                       "depth":3
-                    },
-                    "segmented":0,
-                    "object":[
-                       {
-                          "name":"class1",
-                          "pose":"Unspecified",
-                          "truncated":0,
-                          "difficult":0,
-                          "bndbox":{
-                             "xmin":579,
-                             "ymin":584,
-                             "xmax":924,
-                             "ymax":1120
-                          }
-                       },
-                       {
-                          "name":"class1",
-                          "pose":"Unspecified",
-                          "truncated":0,
-                          "difficult":0,
-                          "bndbox":{
-                             "xmin":120,
-                             "ymin":400,
-                             "xmax":1150,
-                             "ymax":800
-                          }
-                       }
-        
-                    ]
-                 }
-              },
-              {
-                 "annotation":{
-                    "folder":"class1",
-                    "filename":"_ADC0373.jpg",
-                    "path":"~/Desktop/Dev/data/foo/train/class1/_ADC0373.jpg",
-                    "source":{
-                       "database":"Unknown"
-                    },
-                    "size":{
-                       "width":1500,
-                       "height":1500,
-                       "depth":3
-                    },
-                    "segmented":0,
-                    "object":[
-                       {
-                          "name":"class1",
-                          "pose":"Unspecified",
-                          "truncated":0,
-                          "difficult":0,
-                          "bndbox":{
-                             "xmin":487,
-                             "ymin":558,
-                             "xmax":798,
-                             "ymax":942
-                          }
-                       }
-                    ]
-                 }
-              }
-           ]
-        }
-        ```
-        Notes:
-        
-        1- "data" array of Json can contain multiple "annotation" objects for different images. 
-        
-        2- "annotation" objects can contain multiple "object" attributes for multi object detecting in a single image.
-        
-        3- PascalVOC formatted XML files are saved to the path that is given in "annotation.path" for each image/"annotation"
-        
-        The output XML for an image is like :
-        ```xml
-        <?xml version="1.0" encoding="UTF-8"?>
-        <annotation>
-           <folder name="folder">class1</folder>
-           <filename name="filename">_ADC0362.jpg</filename>
-           <path name="path">~/Desktop/Dev/data/foo/train/class1/_ADC0362.jpg</path>
-           <source>
-              <database name="database">Unknown</database>
-           </source>
-           <size>
-              <width name="width">1500</width>
-              <height name="height">1500</height>
-              <depth name="depth">3</depth>
-           </size>
-           <segmented name="segmented">0</segmented>
-           <object>
-              <name name="name">class1</name>
-              <pose name="pose">Unspecified</pose>
-              <truncated name="truncated">0</truncated>
-              <difficult name="difficult">0</difficult>
-              <bndbox>
-                 <xmin name="xmin">579</xmin>
-                 <ymin name="ymin">584</ymin>
-                 <xmax name="xmax">924</xmax>
-                 <ymax name="ymax">1120</ymax>
-              </bndbox>
-           </object>
-           <object>
-              <name name="name">class1</name>
-              <pose name="pose">Unspecified</pose>
-              <truncated name="truncated">0</truncated>
-              <difficult name="difficult">0</difficult>
-              <bndbox>
-                 <xmin name="xmin">120</xmin>
-                 <ymin name="ymin">400</ymin>
-                 <xmax name="xmax">1150</xmax>
-                 <ymax name="ymax">800</ymax>
-              </bndbox>
-           </object>
-        </annotation>
+        from EasyS7.PLC import PLC 
+        plc = PLC('192.168.1.100',0,1) #create a PLC object with ip, rack and slot
+        plc.connect() #create a connection
+        data = plc.readDb('path/to/file.txt',130) #read db with layout and db number
         ```
         
+        The output dictionary is like:
+        ```python
+        {'dummy1': 0.8399999737739563, 'dummy2': 15, 'dummy3': 120, 'dummy4': 14.0, 'dummy5': 4.510000228881836, 'dummy6': 2.7216904163360596, 'dummy7': 0.19440646469593048, 'dummy8': 2, 'dummy9': 0, 'dummy10': 0, 'dummy11': 0, 'dummy12': 0, 'dummy13': 0, 'dummy14': 0, 'dummy15': 0, 'dummy16': 'Kompozit 3', 'dummy17': False, 'dummy18': False, 'dummy19': False, 'dummy20': False, 'dummy21': False, 'dummy22': False, 'dummy23': False, 'dummy24': False, 'dummy25': False, 'dummy26': 67.78571319580078, 'dummy27': False, 'dummy28': False, 'dummy29': True}
+        ```
         
-        
-        
-        
-        ## Contributing
+        # Contributing
         Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
         
-        
-        ## License
+        # License
         [MIT](https://choosealicense.com/licenses/mit/)
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3

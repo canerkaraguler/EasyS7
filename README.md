@@ -6,7 +6,7 @@
 
 EasyS7 is a python library for reading datablocks from Siemens S7 series PLCs . It depends on python-snap7 library so you should first install the library.
 
-## Installition 
+## Installation 
 
 Before installing EasyS7 you should follow the steps that are described in [documentation](https://python-snap7.readthedocs.io/en/latest/). After that, you can install EasyS7 over package manager [pip](https://pypi.org/) with the folowing command 
 
